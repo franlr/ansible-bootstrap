@@ -26,4 +26,8 @@ cd ansible
 make install
 
 # Configuration
+export ANSIBLE_HOSTS=./ansible-tools/hosts
 sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
+
+# Test
+ansible all --inventory-file=./ansible-tools/hosts -m ping
