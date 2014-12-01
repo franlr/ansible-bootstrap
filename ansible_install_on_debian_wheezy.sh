@@ -19,10 +19,10 @@ apt-get install -y facter=2.3.0-1puppetlabs1_all.deb
 #apt-get install -y -t wheezy-backports ansible
 
 # Install from source (1.8.0)
-git clone --branch v1.8.0 https://github.com/ansible/ansible.git
+git clone --branch v1.8.0 https://github.com/ansible/ansible.git /opt/ansible
 apt-get install -y python-setuptools python-pip python-dev sshpass
 pip install PyYAML jinja2 paramiko
-cd ansible
+cd /opt/ansible
 make install
 
 # Configuration
