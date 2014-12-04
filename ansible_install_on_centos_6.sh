@@ -7,6 +7,7 @@ rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noar
 yum install facter
 
 yum install -y python-devel python-setuptools
+# yum install -y python-paramiko PyYAML python-jinja2
 yum --enablerepo=epel* install -y ansible sshpass gmp python-pip
 # or installed from source
 yum groupinstall -y 'Development Tools'
