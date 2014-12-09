@@ -1,1 +1,14 @@
 localhost 127.0.0.1
+
+[development]
+192.168.100.18
+
+[staging]
+192.168.100.19
+
+[production]
+192.168.100.20
+
+[lab:children]
+development
+staging
