@@ -24,6 +24,7 @@ export CODENAME=`lsb_release -c | awk '{print $2}'`
 export FACTER_VERSION="2.3.0"
 export SUFFIX="1puppetlabs1"
 export TAG="1.8.2"
+export CONFDIR="/etc/ansible"
 
 ## Facter (2.3.0)
 wget -O /root/software/puppetlabs-release-$CODENAME.deb http://apt.puppetlabs.com/puppetlabs-release-$CODENAME.deb
@@ -46,13 +47,20 @@ cd /opt/ansible
 make install
 
 echo "***************************************************************"
-echo "Facter: version `facter -v`"
-echo "Ansible: version `ansible --version`"
+echo "version facter `facter -v`"
+echo "`ansible --version`"
 echo "***************************************************************"
 
-# Configuration
-#testmkdir "/etc/ansible/"
-#"{roles,library,group_vars,host_vars,filter_plugins}"
+# Ansible configuration
+testmkdir $CONFDIR
+
+testmkdir $CONFDIR/roles"
+#testmkdir "/etc/ansible/roles"
+
+#testmkdir "/etc/ansible/library"
+#testmkdir "/etc/ansible/group_vars"
+#testmkdir "/etc/ansible/host_vars"
+#testmkdir "/etc/ansible/filter_plugins"
 
 #export ANSIBLE_HOSTS=/etc/ansible/hosts
 #cp hosts /etc/ansible/
