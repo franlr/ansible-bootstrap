@@ -61,7 +61,8 @@ testmkdir $CONFDIR/host_vars
 testmkdir $CONFDIR/filter_plugins
 
 export ANSIBLE_HOSTS=/etc/ansible/hosts
-cp ./hosts $CONFDIR/
+filepath=`pwd`
+cp $filepath/hosts $CONFDIR/
 cp /opt/ansible/examples/ansible.cfg $CONFDIR/
 export ANSIBLE_HOST_KEY_CHECKING=False
 sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
