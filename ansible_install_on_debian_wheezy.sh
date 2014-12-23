@@ -61,12 +61,24 @@ testmkdir $CONFDIR/group_vars
 testmkdir $CONFDIR/host_vars
 testmkdir $CONFDIR/filter_plugins
 
-export ANSIBLE_HOSTS=/etc/ansible/hosts
-cp $filepath/hosts $CONFDIR/
+# ansible.cfg
+# takes the last ansible.cfg from the installed release
+# http://docs.ansible.com/intro_configuration.html
+
 cp /opt/ansible/examples/ansible.cfg $CONFDIR/
 
-export ANSIBLE_HOST_KEY_CHECKING=False
+
+#export ANSIBLE_HOST_KEY_CHECKING=False
 sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
+sed -i 's/^#remote_port$/remote_port/' /etc/ansible/ansible.cfg
+sed -i 's/^#roles_path$/roles_path/' /etc/ansible/ansible.cfg
+sed -i 's/^#host_key_checking$/host_key_checking/' /etc/ansible/ansible.cfg
+sed -i 's/^#remote_user$/remote_user/' /etc/ansible/ansible.cfg
+sed -i 's/^#scp_if_ssh$/scp_if_ssh/' /etc/ansible/ansible.cfg
+
+# Hosts
+#export ANSIBLE_HOSTS=/etc/ansible/hosts
+cp $filepath/hosts $CONFDIR/
 
 # Testing
 #ansible all --inventory-file=/etc/ansible/hosts -m ping
