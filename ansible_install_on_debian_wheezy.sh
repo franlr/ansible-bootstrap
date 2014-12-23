@@ -31,6 +31,7 @@ wget -O /root/software/puppetlabs-release-$CODENAME.deb http://apt.puppetlabs.co
 dpkg -i /root/software/puppetlabs-release-$CODENAME.deb
 apt-get update
 apt-get install -y facter=$FACTER_VERSION-$SUFFIX
+rm -f /root/software/puppetlabs-release-$CODENAME.deb
 
 # Ansible installation
 
