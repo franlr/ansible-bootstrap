@@ -53,20 +53,16 @@ echo "***************************************************************"
 
 # Ansible configuration
 testmkdir $CONFDIR
-
 testmkdir $CONFDIR/roles
-#testmkdir "/etc/ansible/roles"
+testmkdir $CONFDIR/library
+testmkdir $CONFDIR/group_vars
+testmkdir $CONFDIR/host_vars
+testmkdir $CONFDIR/filter_plugins
 
-#testmkdir "/etc/ansible/library"
-#testmkdir "/etc/ansible/group_vars"
-#testmkdir "/etc/ansible/host_vars"
-#testmkdir "/etc/ansible/filter_plugins"
-
-#export ANSIBLE_HOSTS=/etc/ansible/hosts
-#cp hosts /etc/ansible/
-#cp ansible.cfg /etc/ansible/
-
-#sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
+export ANSIBLE_HOSTS=/etc/ansible/hosts
+cp ./hosts $CONFDIR/
+cp /opt/ansible/ansible.cfg $CONFDIR/
+sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
 
 # Testing
 #ansible all --inventory-file=/etc/ansible/hosts -m ping
