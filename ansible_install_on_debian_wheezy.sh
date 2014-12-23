@@ -25,6 +25,7 @@ export FACTER_VERSION="2.3.0"
 export SUFFIX="1puppetlabs1"
 export TAG="1.8.2"
 export CONFDIR="/etc/ansible"
+filepath=`pwd`
 
 ## Facter (2.3.0)
 wget -O /root/software/puppetlabs-release-$CODENAME.deb http://apt.puppetlabs.com/puppetlabs-release-$CODENAME.deb
@@ -61,9 +62,9 @@ testmkdir $CONFDIR/host_vars
 testmkdir $CONFDIR/filter_plugins
 
 export ANSIBLE_HOSTS=/etc/ansible/hosts
-filepath=`pwd`
 cp $filepath/hosts $CONFDIR/
 cp /opt/ansible/examples/ansible.cfg $CONFDIR/
+
 export ANSIBLE_HOST_KEY_CHECKING=False
 sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
 
