@@ -54,7 +54,7 @@ echo "***************************************************************"
 # Ansible configuration
 testmkdir $CONFDIR
 
-testmkdir $CONFDIR/roles"
+testmkdir $CONFDIR/roles
 #testmkdir "/etc/ansible/roles"
 
 #testmkdir "/etc/ansible/library"
