@@ -23,10 +23,10 @@ apt-get install -y build-essential git-core libssl-dev curl wget lsb-release
 export CODENAME=`lsb_release -c | awk '{print $2}'`
 export FACTER_VERSION="2.3.0"
 export SUFFIX="1puppetlabs1"
-TAG="1.8.2"
+export TAG="1.8.2"
 
 ## Facter (2.3.0)
-wget -O /root/software/puppetlabs-release-$CODENAME.deb /http://apt.puppetlabs.com/puppetlabs-release-$CODENAME.deb
+wget -O /root/software/puppetlabs-release-$CODENAME.deb http://apt.puppetlabs.com/puppetlabs-release-$CODENAME.deb
 dpkg -i /root/software/puppetlabs-release-$CODENAME.deb
 apt-get update
 apt-get install -y facter=$FACTER_VERSION-$SUFFIX
@@ -46,8 +46,12 @@ cd /opt/ansible
 make install
 
 # Configuration
-export ANSIBLE_HOSTS=./ansible-tools/hosts
+testmkdir "/etc/ansible/{roles,library,group_vars,host_vars,filter_plugins}"
+export ANSIBLE_HOSTS=/etc/ansible/hosts
+cp ./ansible-tools/hosts /etc/ansible/
+cp ./ansible-tools/ansible.cfg /etc/ansible/
+
 sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
 
 # Testing
-ansible all --inventory-file=./ansible-tools/hosts -m ping
+ansible all --inventory-file=/etc/ansible/hosts -m ping
