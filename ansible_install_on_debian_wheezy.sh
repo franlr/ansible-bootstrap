@@ -45,13 +45,20 @@ pip install PyYAML jinja2 paramiko
 cd /opt/ansible
 make install
 
-# Configuration
-testmkdir "/etc/ansible/{roles,library,group_vars,host_vars,filter_plugins}"
-export ANSIBLE_HOSTS=/etc/ansible/hosts
-cp ./ansible-tools/hosts /etc/ansible/
-cp ./ansible-tools/ansible.cfg /etc/ansible/
+echo "***************************************************************"
+echo "Facter: version `facter -v`"
+echo "Ansible: version `ansible --version`"
+echo "***************************************************************"
 
-sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
+# Configuration
+#testmkdir "/etc/ansible/"
+#"{roles,library,group_vars,host_vars,filter_plugins}"
+
+#export ANSIBLE_HOSTS=/etc/ansible/hosts
+#cp hosts /etc/ansible/
+#cp ansible.cfg /etc/ansible/
+
+#sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
 
 # Testing
-ansible all --inventory-file=/etc/ansible/hosts -m ping
+#ansible all --inventory-file=/etc/ansible/hosts -m ping
