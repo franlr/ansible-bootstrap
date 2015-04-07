@@ -37,14 +37,18 @@ rm -f /root/software/puppetlabs-release-$CODENAME.deb
 
 # Ansible installation
 
-### Install from repositories (1.7.2)
+# Requirements and improvements
 apt-get install -y python-pip python-setuptools python-dev python-dev-all python-yaml \
-# python-paramiko python-jinja2 sshpass
+python-paramiko python-jinja2 python-httplib2 python-support sshpass
+
+# note: clients with python < 2.5 will also need python-simplejson
+
+## Install from repositories (1.7.2)
 # apt-get install -y -t wheezy-backports ansible
 
 ## Install from source (1.9.0)
 git clone --branch v$TAG https://github.com/ansible/ansible.git /opt/ansible --recursive
-# pip install PyYAML jinja2 paramiko
+# pip install PyYAML jinja2 paramiko httplib2
 cd /opt/ansible
 # source ./hacking/env-setup
 ## or
