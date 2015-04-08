@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Install and configure Facter (PupeptLabs) and Ansible on Debian 7 ("Wheezy")
+# Install and configure Facter (PuppetLabs) and Ansible on Debian 7 ("Wheezy")
 
 export CODENAME=`lsb_release -c | awk '{print $2}'`
 export FACTER_VERSION="2.3.0"
@@ -15,7 +15,7 @@ sudo $0
 exit
 fi
 
-# mkdir if it doesn't exist
+# mkdir new directory if it doesn't exist
 testmkdir() {
 if [ ! -d $1 ]; then
 mkdir -p $1
@@ -26,7 +26,7 @@ testmkdir "/root/software"
 
 # Requirements and utilities
 apt-get install -y build-essential lsb-release
-apt-get install -y git-core libssl-dev curl wget
+apt-get install -y git-core openssl curl wget
 
 ## Facter (2.3.0)
 wget -O /root/software/puppetlabs-release-$CODENAME.deb http://apt.puppetlabs.com/puppetlabs-release-$CODENAME.deb
@@ -50,11 +50,12 @@ python-paramiko python-jinja2 python-httplib2 python-support sshpass
 git clone --branch v$TAG https://github.com/ansible/ansible.git /opt/ansible --recursive
 # pip install PyYAML jinja2 paramiko httplib2
 cd /opt/ansible
-# source ./hacking/env-setup
+source ./hacking/env-setup
 ## or
 # make install
-make deb
-dpkg -i deb-build/unstable/ansible*.deb
+## or
+# make deb
+# dpkg -i deb-build/unstable/ansible*.deb
 
 echo "***************************************************************"
 echo "version facter `facter -v`"
@@ -63,17 +64,14 @@ echo "***************************************************************"
 
 # Ansible configuration
 testmkdir $CONFDIR
-testmkdir $CONFDIR/roles
-testmkdir $CONFDIR/library
-testmkdir $CONFDIR/group_vars
-testmkdir $CONFDIR/host_vars
-testmkdir $CONFDIR/filter_plugins
+testmkdir $CONFDIR/{roles,library,group_vars,host_vars,filter_plugins}
 
 # ansible.cfg
 # takes the last ansible.cfg from the installed release
 # http://docs.ansible.com/intro_configuration.html
 
 cp /opt/ansible/examples/ansible.cfg $CONFDIR/
+
 sh -c 'echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config'
 sed -i 's/^#remote_port$/remote_port/' /etc/ansible/ansible.cfg
 sed -i 's/^#roles_path$/roles_path/' /etc/ansible/ansible.cfg
