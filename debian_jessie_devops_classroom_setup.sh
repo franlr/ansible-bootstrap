@@ -30,6 +30,8 @@ vagrant ssh
 # Run this code into the vagrant box
 sudo apt-get install -y sshpass git-core tree curl
 sudo apt-get install -y python-setuptools
+# sudo apt-get install python-software-properties
+# sudo apt-add-repository ppa:ansible/ansible && sudo apt-get update && sudo apt-get install -y install ansible
 cd /tmp
 wget http://releases.ansible.com/ansible/ansible-1.9.1.tar.gz
 tar -xvf ansible-1.9.1.tar.gz
