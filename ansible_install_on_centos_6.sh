@@ -14,7 +14,7 @@ yum --enablerepo=epel* install -y ansible sshpass gmp python-pip
 # timing vulnerabilities when used with pycrypto. If possible, you should update
 # it (i.e. yum update gmp).
 # https://github.com/ualbertalib/Developer-Handbook/tree/master/Ansible
-yum --enablerepo=epel* install -y gmp-devel
+yum --enablerepo=epel* install -y gmp-devel asciidoc
 # recommended: yum install -y openssh-clients
 #
 #
