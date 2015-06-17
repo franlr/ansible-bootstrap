@@ -24,6 +24,7 @@ yum --enablerepo=epel* install -y gmp-devel asciidoc
 yum groupinstall -y 'Development Tools'
 cd /opt
 git clone git://github.com/ansible/ansible.git
+git submodule update --init --recursive
 cd /opt/ansible
 make rpm
 rpm -Uvh ~/rpm-build/ansible-*.noarch.rpm
