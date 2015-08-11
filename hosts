@@ -1,14 +1,14 @@
-localhost 127.0.0.1
+localhost ansible_ssh_host=127.0.0.1 ansible_connection=local
 
-[development]
+[dev]
 192.168.100.18
 
-[staging]
+[stg]
 192.168.100.19
 
-[production]
+[prd]
 192.168.100.20
 
 [lab:children]
-development
-staging
+dev
+stg
