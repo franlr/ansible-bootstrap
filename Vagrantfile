@@ -10,17 +10,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.define :mybox do |mybox|
-    mybox.vm.box = "debian/jessie64"
+  config.vm.define :node do |node|
+    node.vm.box = "debian/jessie64"
     
-    mybox.vm.provider "virtualbox" do |vb|
+    node.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
-
-    mybox.vm.provision :shell, inline: "echo provisioning base package set to make this machine useable"
-    mybox.vm.provision :shell, :path => "debian-jessie-ansible-bootstrap.sh"
+    node.vm.network :private_network, ip: "192.168.0.11"
+    node.vm.provision :shell, inline: "echo provisioning base package set to make this machine useable"
+    node.vm.provision :shell, :path => "debian-jessie-ansible-bootstrap.sh"
     
-    mybox.vm.provision "ansible" do |ansible|
+    node.vm.provision "ansible" do |ansible|
       ansible.playbook = "./playbooks/setup.yml"
       ansible.hosts = "./inventories/hosts"
       ansible.verbose = 'v'
