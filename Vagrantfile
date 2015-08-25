@@ -10,8 +10,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "debian/jessie64"
+  config.vm.define :mybox do |mybox|
+    mybox.vm.box = "debian/jessie64"
+    
+    mybox.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "1024"]
+    end
 
+    mybox.vm.provision :shell, inline: "echo provisioning base package set to make this machine useable"
+    mybox.vm.provision :shell, :path => "debian-jessie-ansible-bootstrap.sh"
+    
+    mybox.vm.provision "ansible" do |ansible|
+      ansible.playbook = "./playbooks/setup.yml"
+      ansible.hosts = "./inventories/hosts"
+      ansible.verbose = 'v'
+    end
+  end
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -40,13 +54,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
-  end
-  
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "./playbooks/setup.yml"
-    ansible.verbose = 'v'
-  end
 end
