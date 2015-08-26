@@ -18,7 +18,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     node.vm.network :private_network, ip: "192.168.0.11"
     node.vm.provision :shell, inline: "echo provisioning base package set to make this machine useable"
-    node.vm.provision :shell, :path => "debian-jessie-ansible-bootstrap.sh"
+
+    node.vm.provision "shell" do |s|
+      s.inline = "apt-get update; apt-get install -y python-software-properties ansible;"
+		  s.privileged = true
+		end
     
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "./playbooks/setup.yml"
