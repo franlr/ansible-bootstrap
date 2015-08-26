@@ -33,9 +33,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.inventory_path = "./inventories/hosts"
       ansible.host_key_checking = false
       ansible.limit = "all"
+      ansible.sudo = true
       ansible.extra_vars = {
         ansible_ssh_user: 'vagrant',
-        ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
+  #      ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
       }
     end
   end
@@ -68,5 +69,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   
-  config.ssh.private_key_path = "~/.vagrant.d/insecure_private_key"
+#  config.ssh.private_key_path = "~/.vagrant.d/insecure_private_key"
 end
