@@ -12,10 +12,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.define :node do |node|
     node.vm.box = "debian/jessie64"
+    node.ssh.insert_key = false
     
     node.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--memory", "1024"]
+      vb.customize ["modifyvm", :id, "--cpus", 1]
+      vb.customize ["modifyvm", :id, "--ioapic", "on"]
     end
+    
     node.vm.network :private_network, ip: "192.168.0.11"
     node.vm.provision :shell, inline: "echo provisioning base package set to make this machine useable"
 
@@ -26,8 +30,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "./playbooks/setup.yml"
-      ansible.hosts = "./inventories/hosts"
-      ansible.verbose = 'v'
+      ansible.inventory_path = "./inventories/hosts"
+      ansible.host_key_checking = false
+      ansible.limit = "all"
+      ansible.extra_vars = {
+        ansible_ssh_user: 'vagrant',
+        ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
+      }
     end
   end
   # Disable automatic box update checking. If you disable this, then
@@ -58,4 +67,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  
+  config.ssh.private_key_path = "~/.vagrant.d/insecure_private_key"
 end
