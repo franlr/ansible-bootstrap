@@ -1,0 +1,27 @@
+---
+
+- hosts: all
+  gather_facts: false
+  vars:
+    latest:
+	    - tzdata
+	    - bash
+	    - openssl
+	    - openssh
+	    - tree
+	    - curl
+	    - wget
+	    - git
+
+  tasks:
+    - name: ensure packages list is at the latest version
+      apt: name="{{ item.latest }}" state=latest update_cache=yes
+      with_items: "{{ latest }}"
+      register: pkgs_installed
+	    notify: my_handler
+
+  handlers:
+    - name: "my_handler"
+      shell: "echo {{ item }} has been installed!"
+      when: item.changed
+      with_items: pkgs_installed.results
