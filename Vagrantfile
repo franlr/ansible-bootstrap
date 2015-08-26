@@ -21,8 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     node.vm.provision "shell" do |s|
       s.inline = "apt-get update; apt-get install -y python-software-properties ansible;"
-		  s.privileged = true
-		end
+      s.privileged = true
+    end
     
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "./playbooks/setup.yml"
