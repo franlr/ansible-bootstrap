@@ -1,0 +1,6 @@
+---
+# file: requirements.yml
+# Requirements for running the playbook
+
+# from galaxy, github installing to a relative path
+- src:  scott.miller171.linux_updater
