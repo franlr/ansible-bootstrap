@@ -2,16 +2,18 @@
 
 - hosts: all
   gather_facts: false
+  roles:
+    - scott.miller171.linux_updater
   vars:
     latest:
-	    - tzdata
-	    - bash
-	    - openssl
-	    - openssh
-	    - tree
-	    - curl
-	    - wget
-	    - git
+      - tzdata
+      - bash
+      - openssl
+      - openssh
+      - tree
+      - curl
+      - wget
+      - git
 
   tasks:
     - name: ensure packages list is at the latest version
