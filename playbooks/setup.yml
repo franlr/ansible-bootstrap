@@ -20,7 +20,7 @@
       apt: name="{{ item.latest }}" state=latest update_cache=yes
       with_items: "{{ latest }}"
       register: pkgs_installed
-	    notify: my_handler
+      notify: my_handler
 
   handlers:
     - name: "my_handler"
